@@ -72,17 +72,18 @@ function (_Component) {
           lineNumber: 17
         },
         __self: this
-      }, item.image ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, item.image && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: item.image,
+        alt: item.title,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 18
         },
         __self: this
-      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles_Title__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles_Title__WEBPACK_IMPORTED_MODULE_3__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 19
+          lineNumber: 20
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_6___default.a, {
@@ -94,62 +95,62 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 20
+          lineNumber: 21
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 21
+          lineNumber: 22
         },
         __self: this
       }, item.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles_PriceTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 24
+          lineNumber: 25
         },
         __self: this
       }, Object(_lib_formatMoney__WEBPACK_IMPORTED_MODULE_7__["default"])(item.price)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 25
+          lineNumber: 26
         },
         __self: this
       }, item.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "buttonList",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 26
+          lineNumber: 27
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_6___default.a, {
         href: {
-          pathname: '/update',
+          pathname: 'update',
           query: {
             id: item.id
           }
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 27
+          lineNumber: 28
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 28
+          lineNumber: 29
         },
         __self: this
       }, "Edit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 30
+          lineNumber: 31
         },
         __self: this
       }, "Add to Cart"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 31
+          lineNumber: 32
         },
         __self: this
       }, "Delete")));
@@ -271,29 +272,27 @@ function (_Component) {
             lineNumber: 38
           },
           __self: this
-        }, "...loading");
+        }, "Loading...");
         if (error) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
           __source: {
             fileName: _jsxFileName,
             lineNumber: 39
           },
           __self: this
-        }, error);
-        console.log(data.items);
-        console.log(error);
+        }, "Error: ", error.message);
         return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ItemsList, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 42
+            lineNumber: 41
           },
           __self: this
-        }, data.items.map(function (element, index) {
+        }, data.items.map(function (item) {
           return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_Item__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            key: element.id,
-            item: element,
+            item: item,
+            key: item.id,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 44
+              lineNumber: 41
             },
             __self: this
           });
@@ -28996,7 +28995,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 4:
+/***/ 3:
 /*!******************************!*\
   !*** multi ./pages/items.js ***!
   \******************************/
@@ -29021,5 +29020,5 @@ module.exports = dll_5d62d38be3592dca3a42;
 
 /***/ })
 
-},[[4,"static/runtime/webpack.js"]]]));;
+},[[3,"static/runtime/webpack.js"]]]));;
 //# sourceMappingURL=items.js.map
