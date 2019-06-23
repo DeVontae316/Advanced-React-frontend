@@ -1,125 +1,152 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import {Mutation} from 'react-apollo';
+import Router from 'next/router';
 import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import ErrorMessage from './ErrorMessage';
-import Router from 'next/router';
+
 
 const Center = styled.div`
  text-align:center;
-`
-
-
-
-const CREATE_ITEM_MUTATION = gql`
-  mutation CREATE_ITEM_MUTATION(
-    $id:ID!,
-    $description: String!,
-    $image: String!,
-    $largeImage: String!,
-    $price: Int!,
-    $title: String!) {
-    createItem(
-      id:$id
-      description: $description
-      image: $image
-      largeImage: $largeImage
-      price: $price
-      title: $title
-
-
-
-
-    ) {
-      id
-    }
-  }
 `;
 
-class CreateItem extends Component {
+const CREATE_ITEM_MUTATION = gql`
+ mutation CREATE_ITEM_MUTATION(
+   $description:String!
+   $title:String!
+   $price:Int!
+   $largeImage:String
+   $image:String
+ ){
+   createItem(
+     description:$description
+     title:$title
+     price:$price
+     largeImage:$largeImage
+     image:$image
+   ){
+     id
+   }
+ }
+`
+class CreateItem extends Component{
   state = {
-    description: '',
-    image: '',
-    largeImage: '',
-    price: 0,
-    title: '',
-
-
-
-
-  };
-  handleChange = e => {
-    const { name, type, value } = e.target;
-    const val = type === 'number' ? parseFloat(value) : value;
-    this.setState({ [name]: val });
+    title:'default',
+    description: 'default',
+    image: 'no.png',
+    largeImage: 'nope.png',
+    price:0
   };
 
+  onChange = (e) =>{
+    const{name,value,type} = e.target;
+    const val = type === "number" ? parseFloat(value) : value;
+    this.setState({[name]:val});
+  };
+
+  /*uploadFile =  async (e) =>{
+    console.log('upload file');
+    const files = e.target.files//Filelist array
+    const data = new FormData();
+    data.append('file',files[0]);//First item user selected which is in the Filelist
+    data.append('upload_preset','SickFiits');
+
+    const res = await fetch
+    ('https://api.cloudinary.com/v1_1/dhnbtmpj6/image/upload',{
+      method:'POST',
+      body:data
+    })
+
+    const file = await res.json();
+    console.log(file);
+
+    this.setState({
+      image:file.secure_url,
+      largeImage:file.eager[0].secure_url
+    });
+  }*/
+  uploadFile = async (e)=>{
+    const files = e.target.files;
+    const data = new FormData();
+    data.append('file',files[0]);
+    data.append('upload_preset','SickFiits');
+
+    const res = await fetch('https://api.cloudinary.com/v1_1/dhnbtmpj6/image/upload',
+      {
+        method:'POST',
+        body:data
+      });
+    const json = await res.json();
+
+    console.log(json);
+
+    this.setstate({
+      image:json.secure_url,
+      largeImage:json.eager[0].secure_url
+    })
+  }
+  render(){
+    return(
+     <Mutation mutation={CREATE_ITEM_MUTATION } variables ={this.state}
+     >
+      {(createItem,{loading,error})=>(
+        <Form onSubmit={async e =>{
+          e.preventDefault();
+          const res = await createItem();
+          Router.push({
+            pathname:'/item',
+            query:{id:res.data.createItem.id}
+          })
+          console.log(res);
+        }}>
+        <ErrorMessage error={error} />
+         <fieldset disabled={loading} aria-busy={loading}>
+         File
+          <label htmlFor="file">
+           <input onChange={this.uploadFile} placeholder="Upload a image"
+           requiredvalue={this.state.image} id="file" name="file"
+           type="file" />
+          </label>
+         Title
+          <label htmlFor="title">
+           <input onChange={this.onChange} placeholder="title"
+           requiredvalue={this.state.title} id="title" name="title"
+           type="text" />
+          </label>
+          Price
+           <label htmlFor="price">
+            <input onChange={this.onChange} placeholder="price"
+            requiredvalue={this.state.price} id="price" name="price"
+            type="number" />
+           </label>
+           Description
+            <label htmlFor="price">
+             <textarea onChange={this.onChange} placeholder="description"
+             requiredvalue={this.state.description}
+             id="description" name="description"
+             />
+            </label>
+            <button type="onSubmit">Submit</button>
+         </fieldset>
+        </Form>
+
+      )}
 
 
-  render() {
-    return (
-      <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
-        {(createItem, { loading, error }) => (
-          <Form onSubmit={async e => {
-              // Stop the form from submitting
-              e.preventDefault();
-              // call the mutation
-              const res = await createItem();
-              // change them to the single item page
-              console.log(res);
-
-            }}
-          >
-            <ErrorMessage error={error} />
-            <fieldset disabled={loading} aria-busy={loading}>
-               <label htmlFor="title">
-                Title
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  placeholder="Title"
-                  required
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                />
-              </label>
-
-              <label htmlFor="price">
-                Price
-                <input
-                  type="number"
-                  id="price"
-                  name="price"
-                  placeholder="Price"
-                  required
-                  value={this.state.price}
-                  onChange={this.handleChange}
-                />
-              </label>
-
-              <label htmlFor="description">
-                Description
-                <textarea
-                  id="description"
-                  name="description"
-                  placeholder="Enter A Description"
-                  required
-                  value={this.state.description}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <button type="submit">Submit</button>
-            </fieldset>
-          </Form>
-        )}
       </Mutation>
-    );
+    )
   }
 }
+
+
+
+
+
+
+
 
 export default CreateItem;
 export { CREATE_ITEM_MUTATION };

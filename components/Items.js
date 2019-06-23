@@ -1,5 +1,6 @@
-import {Query} from 'react-apollo';
+
 import gql from 'graphql-tag';
+import {Query} from 'react-apollo';
 import React,{Component} from 'react';
 import styled from 'styled-components';
 import Item from './Item';
@@ -15,10 +16,8 @@ const ItemsList = styled.div`
  margin:0 auto;
 
 `
-
-
-const ALL_ITEMS_QUERY = gql`
- query ALL_ITEMS_QUERY{
+const QUERY_ALL_ITEMS = gql`
+ query QUERY_ALL_ITEMS{
    items{
      id
      title
@@ -27,22 +26,26 @@ const ALL_ITEMS_QUERY = gql`
      largeImage
      price
    }
+
  }
-`;
+`
+
+
 class Items extends Component{
   render(){
     return(
-      <Center>
-       <Query query={ALL_ITEMS_QUERY}>
-       {({ data, error, loading }) => {
-           if (loading) return <p>Loading...</p>;
-           if (error) return <p>Error: {error.message}</p>;
-           return (
-             <ItemsList>{data.items.map(item => <Item item={item} key={item.id} />)}</ItemsList>
-           );
-         }}
-       </Query>
-      </Center>
+     <div>
+      <Query query={QUERY_ALL_ITEMS}>
+       {({data,loading,error}) =>{
+         if(loading)<p>....loading</p>
+         if(error)<p>{error.message}</p>
+         console.log(data);
+         return <ItemsList>{data.items.map(item =>(
+           <Item item={item} key={item.id} />
+         ))}</ItemsList>
+       }}
+      </Query>
+     </div>
     )
   }
 }

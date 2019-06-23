@@ -166,18 +166,17 @@ function (_Component) {
           lineNumber: 17
         },
         __self: this
-      }, item.image && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, item.image ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: item.image,
-        alt: item.title,
         __source: {
           fileName: _jsxFileName,
           lineNumber: 18
         },
         __self: this
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles_Title__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles_Title__WEBPACK_IMPORTED_MODULE_3__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 20
+          lineNumber: 19
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_6___default.a, {
@@ -189,62 +188,62 @@ function (_Component) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 21
+          lineNumber: 20
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 22
+          lineNumber: 21
         },
         __self: this
       }, item.title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles_PriceTag__WEBPACK_IMPORTED_MODULE_2__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 25
+          lineNumber: 24
         },
         __self: this
       }, Object(_lib_formatMoney__WEBPACK_IMPORTED_MODULE_7__["default"])(item.price)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 26
+          lineNumber: 25
         },
         __self: this
       }, item.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "buttonList",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 27
+          lineNumber: 26
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_link__WEBPACK_IMPORTED_MODULE_6___default.a, {
         href: {
-          pathname: 'update',
+          pathname: '/update',
           query: {
             id: item.id
           }
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 28
+          lineNumber: 27
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 29
+          lineNumber: 28
         },
         __self: this
       }, "Edit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 31
+          lineNumber: 30
         },
         __self: this
       }, "Add to Cart"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 32
+          lineNumber: 31
         },
         __self: this
       }, "Delete")));
@@ -272,10 +271,10 @@ _defineProperty(Item, "propTypes", {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ALL_ITEMS_QUERY", function() { return ALL_ITEMS_QUERY; });
-/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-apollo */ "react-apollo");
-/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! graphql-tag */ "graphql-tag");
-/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! graphql-tag */ "graphql-tag");
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-apollo */ "react-apollo");
+/* harmony import */ var react_apollo__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_apollo__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "styled-components");
@@ -302,7 +301,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n query ALL_ITEMS_QUERY{\n   items{\n     id\n     title\n     description\n     image\n     largeImage\n     price\n   }\n }\n"]);
+  var data = _taggedTemplateLiteral(["\n query QUERY_ALL_ITEMS{\n   items{\n     id\n     title\n     description\n     image\n     largeImage\n     price\n   }\n\n }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -328,7 +327,7 @@ var ItemsList = styled_components__WEBPACK_IMPORTED_MODULE_3___default.a.div.wit
 })(["display:grid;grid-template-columns:1fr 1fr;max-width:", ";grid-gap:60px;margin:0 auto;"], function (props) {
   return props.theme.maxWidth;
 });
-var ALL_ITEMS_QUERY = graphql_tag__WEBPACK_IMPORTED_MODULE_1___default()(_templateObject());
+var QUERY_ALL_ITEMS = graphql_tag__WEBPACK_IMPORTED_MODULE_0___default()(_templateObject());
 
 var Items =
 /*#__PURE__*/
@@ -344,41 +343,42 @@ function (_Component) {
   _createClass(Items, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Center, {
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 35
+          lineNumber: 37
         },
         __self: this
-      }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_0__["Query"], {
-        query: ALL_ITEMS_QUERY,
+      }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_apollo__WEBPACK_IMPORTED_MODULE_1__["Query"], {
+        query: QUERY_ALL_ITEMS,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 36
+          lineNumber: 38
         },
         __self: this
       }, function (_ref) {
         var data = _ref.data,
-            error = _ref.error,
-            loading = _ref.loading;
-        if (loading) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+            loading = _ref.loading,
+            error = _ref.error;
+        if (loading) react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 38
+            lineNumber: 40
           },
           __self: this
-        }, "Loading...");
-        if (error) return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 39
-          },
-          __self: this
-        }, "Error: ", error.message);
-        return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ItemsList, {
+        }, "....loading");
+        if (error) react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
           __source: {
             fileName: _jsxFileName,
             lineNumber: 41
+          },
+          __self: this
+        }, error.message);
+        console.log(data);
+        return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(ItemsList, {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 43
           },
           __self: this
         }, data.items.map(function (item) {
@@ -387,7 +387,7 @@ function (_Component) {
             key: item.id,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 41
+              lineNumber: 44
             },
             __self: this
           });
