@@ -47,7 +47,7 @@ class CreateItem extends Component{
     this.setState({[name]:val});
   };
 
-  /*uploadFile =  async (e) =>{
+  uploadFile =  async (e) =>{
     console.log('upload file');
     const files = e.target.files//Filelist array
     const data = new FormData();
@@ -67,7 +67,7 @@ class CreateItem extends Component{
       image:file.secure_url,
       largeImage:file.eager[0].secure_url
     });
-  }*/
+  }
   uploadFile = async (e)=>{
     const files = e.target.files;
     const data = new FormData();
