@@ -6,34 +6,36 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import formatMoney from '../lib/formatMoney';
+import DeleteItem from './DeleteItem';
 
 class Item extends Component{
-  static propTypes = {
-    item:PropTypes.object.isRequired,
-  };
+   static propTypes = {
+     item:PropTypes.object.isRequired,
+   }
   render(){
     const {item} = this.props;
     return(
       <ItemStyles>
-       {item.image ? <img src={item.image}/> : null}
+       {item.image ? <img src={this.props.item.image}/> : null}
        <Title>
-       <Link href={{pathname:'/item', query:{id:item.id}}}>
-       <a>{item.title}</a>
-       </Link>
+        <Link href={{pathname:"/item",query:{id:this.props.item.id}}}>
+         <a>{this.props.item.title}</a>
+        </Link>
        </Title>
-       <PriceTag>{formatMoney(item.price)}</PriceTag>
-       <p>{item.description}</p>
+       <PriceTag>{formatMoney(this.props.item.price)}</PriceTag>
+       <p>{this.props.item.description}</p>
        <div className="buttonList">
-        <Link href={{pathname:'/update',query:{id:item.id}}}>
-         <a>Edit</a>
+       <Link href={{pathname:"/update",query:{id:this.props.item.id}}}>
+        <a>update</a>
         </Link>
         <button>Add to Cart</button>
-        <button>Delete</button>
+       <DeleteItem id={item.id}>Delete this item</DeleteItem>
 
        </div>
       </ItemStyles>
     )
   }
 }
+
 
 export default Item;

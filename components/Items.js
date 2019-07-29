@@ -4,6 +4,7 @@ import {Query} from 'react-apollo';
 import React,{Component} from 'react';
 import styled from 'styled-components';
 import Item from './Item';
+import Pagination from './Pagination';
 
 const Center = styled.div`
   text-align:center;
@@ -22,33 +23,38 @@ const QUERY_ALL_ITEMS = gql`
      id
      title
      description
+     price
      image
      largeImage
-     price
    }
-
  }
+
+
 `
 
 
 class Items extends Component{
   render(){
     return(
-     <div>
+     <Center>
+      <Pagination page={this.props.page}/>
       <Query query={QUERY_ALL_ITEMS}>
        {({data,loading,error}) =>{
          if(loading)<p>....loading</p>
          if(error)<p>{error.message}</p>
          console.log(data);
-         return <ItemsList>{data.items.map(item =>(
-           <Item item={item} key={item.id} />
-         ))}</ItemsList>
+         return<ItemsList>
+          {data.items.map(item =>(
+            <Item item={item} key={item.id}/>
+          ))}
+         </ItemsList>
        }}
       </Query>
-     </div>
+     <Pagination page={this.props.page}/>
+     </Center>
     )
   }
 }
 
 export default Items;
-export {ALL_ITEMS_QUERY};
+export {QUERY_ALL_ITEMS};

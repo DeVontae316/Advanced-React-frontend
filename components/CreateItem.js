@@ -15,18 +15,18 @@ const Center = styled.div`
 
 const CREATE_ITEM_MUTATION = gql`
  mutation CREATE_ITEM_MUTATION(
-   $description:String!
    $title:String!
-   $price:Int!
-   $largeImage:String
+   $description:String!
    $image:String
+   $largeImage:String
+   $price:Int!
  ){
    createItem(
-     description:$description
-     title:$title
-     price:$price
-     largeImage:$largeImage
-     image:$image
+    title:$title
+    description:$description
+    image:$image
+    largeImage:$largeImage
+    price:$price
    ){
      id
    }
@@ -47,28 +47,17 @@ class CreateItem extends Component{
     this.setState({[name]:val});
   };
 
-  uploadFile =  async (e) =>{
-    console.log('upload file');
-    const files = e.target.files//Filelist array
-    const data = new FormData();
-    data.append('file',files[0]);//First item user selected which is in the Filelist
-    data.append('upload_preset','SickFiits');
 
-    const res = await fetch
-    ('https://api.cloudinary.com/v1_1/dhnbtmpj6/image/upload',{
-      method:'POST',
-      body:data
-    })
 
-    const file = await res.json();
-    console.log(file);
 
-    this.setState({
-      image:file.secure_url,
-      largeImage:file.eager[0].secure_url
-    });
-  }
   uploadFile = async (e)=>{
+    /*
+    Get files via FileList object
+    and prepare files
+    via FormData append
+    method.
+    */
+    
     const files = e.target.files;
     const data = new FormData();
     data.append('file',files[0]);
@@ -83,60 +72,63 @@ class CreateItem extends Component{
 
     console.log(json);
 
-    this.setstate({
+    this.setState({
       image:json.secure_url,
       largeImage:json.eager[0].secure_url
     })
   }
   render(){
     return(
-     <Mutation mutation={CREATE_ITEM_MUTATION } variables ={this.state}
-     >
+      <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}
+      >
       {(createItem,{loading,error})=>(
-        <Form onSubmit={async e =>{
+        <Form onSubmit={async (e)=>{
           e.preventDefault();
-          const res = await createItem();
+          const val = await createItem();
+          console.log(val);
           Router.push({
             pathname:'/item',
-            query:{id:res.data.createItem.id}
-          })
-          console.log(res);
+            query:{id:val.data.createItem.id}
+          });
         }}>
-        <ErrorMessage error={error} />
-         <fieldset disabled={loading} aria-busy={loading}>
-         File
-          <label htmlFor="file">
-           <input onChange={this.uploadFile} placeholder="Upload a image"
-           requiredvalue={this.state.image} id="file" name="file"
-           type="file" />
-          </label>
-         Title
-          <label htmlFor="title">
-           <input onChange={this.onChange} placeholder="title"
-           requiredvalue={this.state.title} id="title" name="title"
-           type="text" />
-          </label>
-          Price
-           <label htmlFor="price">
-            <input onChange={this.onChange} placeholder="price"
-            requiredvalue={this.state.price} id="price" name="price"
-            type="number" />
+         <ErrorMessage error={error} />
+          <fieldset disabled={loading} aria-busy={loading}>
+          File
+           <label htmlFor="file">
+            <input onChange={this.uploadFile} placeholder="Upload a image"
+            requiredvalue={this.state.image} id="file" name="file"
+            type="file" />
            </label>
-           Description
+          Title
+           <label htmlFor="title">
+            <input onChange={this.onChange} placeholder="title"
+            requiredvalue={this.state.title} id="title" name="title"
+            type="text" />
+           </label>
+           Price
             <label htmlFor="price">
-             <textarea onChange={this.onChange} placeholder="description"
-             requiredvalue={this.state.description}
-             id="description" name="description"
-             />
+             <input onChange={this.onChange} placeholder="price"
+             requiredvalue={this.state.price} id="price" name="price"
+             type="number" />
             </label>
-            <button type="onSubmit">Submit</button>
-         </fieldset>
-        </Form>
+            Description
+             <label htmlFor="price">
+              <textarea onChange={this.onChange} placeholder="description"
+              requiredvalue={this.state.description}
+              id="description" name="description"
+              />
+             </label>
+             <button type="onSubmit">Submit</button>
+          </fieldset>
+         </Form>
+
+
 
       )}
-
-
       </Mutation>
+
+
+
     )
   }
 }

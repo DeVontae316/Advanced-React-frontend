@@ -276,7 +276,7 @@ var Meta = function Meta() {
       lineNumber: 10
     },
     __self: this
-  }, "Sick Beatz!"));
+  }, "Sick Fits!"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Meta);
