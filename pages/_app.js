@@ -35,6 +35,7 @@ import App,{Container} from 'next/app';
 import Page from '../components/Page';
 import {ApolloProvider} from 'react-apollo';
 import withData from '../lib/withData';
+import { StateProvider } from '../components/LocalState';
 
 class MyApp extends App{
 //This is a Next.js lifecycle method that will run first
@@ -50,13 +51,17 @@ class MyApp extends App{
   render(){
     const {Component,apollo,pageProps} = this.props;
     return(
-     <Container>
-       <ApolloProvider client = {apollo}>
-         <Page>
-           <Component {...pageProps} />
-         </Page>
-       </ApolloProvider >
-    </Container>
+      <Container>
+         <ApolloProvider client = {apollo}>
+          <StateProvider>
+            <Page>
+              <Component {...pageProps} />
+            </Page> 
+          </StateProvider>
+        </ApolloProvider >
+      </Container>
+      
+    
     )
   }
 }
