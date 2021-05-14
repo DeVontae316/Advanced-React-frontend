@@ -3,44 +3,44 @@ import {Mutation} from 'react-apollo';
 import gql from 'graphql-tag';
 import {QUERY_ALL_ITEMS} from './Items';
 import PropTypes from 'prop-types';
+import {CURRENT_USER_QUERY} from './User';
 
-const DELETE_ITEM_MUTATION = gql`
- mutation DELETE_ITEM_MUTATION($id:ID!){
+const DELETE_ITEM =  gql`
+ mutation DELETE_ITEM($id:ID!){
    deleteItem(id:$id){
-     id
-     title
-     description
+    id
+    
    }
  }
 `
 
 class DeleteItem extends Component{
-  update = (cache,payload)=>{
-    const query = cache.readQuery({query:QUERY_ALL_ITEMS});
-    query.items = query.items.filter(item => item.id !== payload.data.deleteItem.id)
-    cache.writeQuery({query:QUERY_ALL_ITEMS , data:query});
-
-  }
+ update = (cache,payload)=>{
+   const data = cache.readQuery({query:QUERY_ALL_ITEMS});
+   data.items = data.items.filter(item => item.id !== payload.data.deleteItem.id);
+   cache.writeQuery({query:QUERY_ALL_ITEMS,data});
+ }
 
   render(){
 
     return(
-     <Mutation update={this.update}mutation={DELETE_ITEM_MUTATION} variables={{id:this.props.id}}>
-      {(deleteItem,{loading,error})=>(
+     <Mutation refetchQueries={[{query:CURRENT_USER_QUERY}]}mutation={DELETE_ITEM}
+      update={this.update}
+      variables={{id:this.props.id}}>
+        {(deleteItem,{loading,error})=>(
 
-         <button onClick={()=>{
-           if(error)<p>{error.message}</p>
-           if(confirm('Are you sure you want to delete this item?')){
-              deleteItem();
-           }
+          <button onClick={()=>{
 
-          ;
-         }}>
-          {this.props.children}
-         </button>
+            if(confirm('Are you sure you want to delete this item')){
+              deleteItem().catch(err=>{
+                alert(err.message);
+              });
+            }
+          }}>{this.props.children}</button>
+        )}
 
-      )}
-     </Mutation>
+    </Mutation>
+
 
     )
   }

@@ -7,6 +7,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+
+
 const Center = styled.div`
  text-align:center;
  margin-top:8px;
@@ -36,13 +38,13 @@ const Pagination = props =>{
        if(error)<p>{error.message}</p>
        return<PaginationStyles>
 
-         <Link href={{pathname:"/items",page:page - 1}}>
+         <Link href={{pathname:"/items",query:{page:page - 1}}}>
           <a aria-disabled={page <= 1}>Prev</a>
          </Link>
 
           <p>Page {props.page} out of {pages}</p>
 
-         <Link href={{pathname:"/items",page:page + 1}}>
+         <Link href={{pathname:"/items",query:{page:page + 1}}}>
            <a aria-disabled={page >= pages}>Next</a>
          </Link>
 
@@ -53,5 +55,5 @@ const Pagination = props =>{
   )
 }
 
-
+export{PAGINATION_QUERY};
 export default Pagination;

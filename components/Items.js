@@ -5,6 +5,8 @@ import React,{Component} from 'react';
 import styled from 'styled-components';
 import Item from './Item';
 import Pagination from './Pagination';
+import Paginationpractice from './Paginationpractice';
+import {perPage} from '../config';
 
 const Center = styled.div`
   text-align:center;
@@ -18,8 +20,8 @@ const ItemsList = styled.div`
 
 `
 const QUERY_ALL_ITEMS = gql`
- query QUERY_ALL_ITEMS{
-   items{
+ query QUERY_ALL_ITEMS($skip: Int = 0 $first: Int = ${17}){
+   items(first:$first skip:$skip orderBy:createdAt_DESC){
      id
      title
      description
@@ -37,14 +39,20 @@ class Items extends Component{
   render(){
     return(
      <Center>
+      <Paginationpractice page={this.props.page}/>
       <Pagination page={this.props.page}/>
-      <Query query={QUERY_ALL_ITEMS}>
-       {({data,loading,error}) =>{
+      <Query query={QUERY_ALL_ITEMS} variables={
+        {skip:this.props.page * perPage - perPage
+        }
+
+      }>
+       {({data,loading,error}) =>  {
          if(loading)<p>....loading</p>
          if(error)<p>{error.message}</p>
+         console.log("Show me the data");
          console.log(data);
          return<ItemsList>
-          {data.items.map(item =>(
+          {data.items.map(item => (
             <Item item={item} key={item.id}/>
           ))}
          </ItemsList>

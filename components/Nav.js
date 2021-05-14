@@ -3,11 +3,10 @@ import NavStyles from '../components/styles/NavStyles';
 import User from './User';
 import SignOut from './SignOut';
 import {Mutation} from 'react-apollo';
-
+import {LOCAL_STATE_MUTATION} from '../components/Cart';
 import CartCount from './CartCount';
 import styled from 'styled-components';
 import Hooks from './Hooks';
-import {useCart} from  './LocalState';
 
 const Cart = styled.p`
 background:${props => props.theme.red};
@@ -23,13 +22,13 @@ font-variant-numeric:tabular-numeric;
 
 `
 
-const Nav = (props)=>{
- const {toggleCart} = useCart();
+const Nav = (props)=>(
 
-    return <User>
+
+    <User>
      {({data:{me}})=>(
      
-      <NavStyles>
+      <NavStyles data-test="nav">
 
        <Link href='/items'>
         <a>Shop</a>
@@ -51,7 +50,21 @@ const Nav = (props)=>{
          
           <SignOut />
            {me.name}
-          <button  onClick={toggleCart}type="button">Cart</button>
+          <Mutation mutation={LOCAL_STATE_MUTATION}>
+            {(toggle,{loading,error})=>(
+              
+
+                <button onClick={toggle}><Cart>Cart</Cart>
+                
+                 <CartCount count={me.cart.reduce((reducer,item)=>{
+                    const total = reducer + item.quantity;
+                    return total;
+                 },0)}/>
+                 <p>items in cart</p>
+                </button>
+            )}
+          </Mutation>
+          
             
           
         </>
@@ -71,7 +84,7 @@ const Nav = (props)=>{
 
     </User>
 
-  }
+  )
 
 
 export default Nav;

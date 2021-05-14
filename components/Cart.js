@@ -10,56 +10,71 @@
  import calcTotalPrice from '../lib/calcTotalPrice';
  import formatMoney from '../lib/formatMoney';
  import TakeMyMoney from './TakeMyMoney';
- import {useContext} from 'react';
-import { useCart } from './LocalState';
-import {StateProvider} from '../components/LocalState';
 
+ const LOCAL_STATE_QUERY = gql`
+  query{
+      cartOpen @client
+  }
+ `
+ const LOCAL_STATE_MUTATION = gql`
+  mutation{
+      toggleCart @client
+  }
+ `
 
- 
-const Cart = ()=>{
-   const {iscartOpen,toggleCart} = useCart(); 
-   return<User>
+const Cart = ()=>(
+    /*<div>
+        <p>Test</p>
+    </div>*/
+   <User>
       {({data:{me}})=>{
-          
           if(!me) return null;
-          return<CartStyles open={iscartOpen} >
-          <header>
-              <CloseButton onClick={toggleCart}title="close">&times;</CloseButton>
-              <Supreme>Name</Supreme>
-            <p>You have {me.cart.length} item in your cart</p>
-              
-          </header>
-           <ul>
-           {me.cart.map((cartItem,index,array)=>
-           <CartItem key={cartItem.id}cartItem={cartItem} />)}
           
-    
-            </ul>
-          <footer><p>Total:{formatMoney(me.cart.reduce((reducer,cartItem)=>{
-                  
-                  return reducer  + cartItem.quantity * cartItem.item.price;
-          },0))}</p>
-           <TakeMyMoney>
-             {me.cart.length ? <SickButton>Checkout</SickButton> : <h3>Please buy something:)</h3>}
-           </TakeMyMoney>
-           
-          </footer>
-  
-      </CartStyles>
-     
+          
+         return <Mutation mutation={LOCAL_STATE_MUTATION}>
+         {(toggleCart,{loading,error})=>(
+            <Query query={LOCAL_STATE_QUERY}>
+        
+            {({data,error,loading})=> console.log(me) || (
+                <CartStyles open ={data.cartOpen}>
+                <header>
+                    <CloseButton onClick={toggleCart} title="close">&times;</CloseButton>
+                    <Supreme>Name</Supreme>
+                  <p>You have {me.cart.length} item in your cart</p>
+                    
+                </header>
+                 <ul>
+                 {me.cart.map((cartItem,index,array)=>
+                 <CartItem key={cartItem.id}cartItem={cartItem} />)}
+                
+          
+                  </ul>
+                <footer><p>Total:{formatMoney(me.cart.reduce((reducer,cartItem)=>{
+                        
+                        return reducer  + cartItem.quantity * cartItem.item.price;
+                },0))}</p>
+                 <TakeMyMoney>
+                   {me.cart.length ? <SickButton>Checkout</SickButton> : <h3>Please buy something:)</h3>}
+                 </TakeMyMoney>
+                 
+                </footer>
+        
+            </CartStyles>
+            )} 
+         </Query>
+         )}
+     </Mutation>
       }}
-          
-      
    </User>
     
        
-}
+    )
 
     
 
 
 export default Cart;
-
+export {LOCAL_STATE_QUERY,LOCAL_STATE_MUTATION};
 
 /*
 Skills:

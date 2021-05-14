@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Request/> Renders and matches snap shot 1`] = `
+<form
+  className="Form-sc-1xszr8q-0 krRxky"
+  data-test="form"
+  method="post"
+  onSubmit={[Function]}
+>
+  CHANGE PASSWORD
+  <DisplayError
+    error={Object {}}
+  />
+  <fieldset>
+    <span>
+      EMAIL
+    </span>
+    <label
+      htmlFor="email"
+    >
+      <input
+        id="email"
+        name="email"
+        onChange={[Function]}
+        placeholder="Email"
+        required={true}
+        type="text"
+        value=" "
+      />
+    </label>
+    <button
+      type="onSubmit"
+    >
+      Change Password
+    </button>
+  </fieldset>
+</form>
+`;

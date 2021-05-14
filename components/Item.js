@@ -7,10 +7,24 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import formatMoney from '../lib/formatMoney';
 import DeleteItem from './DeleteItem';
+import AddToCart from './AddToCart';
+import AddToCart2 from './AddToCart2';
+import AddToCart3 from './AddToCart3';
+import Modal from './Modal';
+import AddCartPractice from './AddCartPractice';
+
 
 class Item extends Component{
    static propTypes = {
-     item:PropTypes.object.isRequired,
+     item:PropTypes.object.isRequired
+   }
+   state = {
+     show:false
+   }
+   showModal = ()=>{
+     this.setState({
+       show:true,
+     })
    }
   render(){
     const {item} = this.props;
@@ -25,12 +39,16 @@ class Item extends Component{
        <PriceTag>{formatMoney(this.props.item.price)}</PriceTag>
        <p>{this.props.item.description}</p>
        <div className="buttonList">
-       <Link href={{pathname:"/update",query:{id:this.props.item.id}}}>
+       <Link href={{pathname:"/update",query:{id:item.id}}}>
         <a>update</a>
         </Link>
-        <button>Add to Cart</button>
+        
+        <AddCartPractice item={item.id}/>
        <DeleteItem id={item.id}>Delete this item</DeleteItem>
-
+        <button onClick={(e)=>{
+          this.showModal();
+        }}>Place Order</button>
+        <Modal show={this.state.show}/>
        </div>
       </ItemStyles>
     )

@@ -26,9 +26,9 @@ const QUERY_ITEM_UPDATE = gql`
 const ITEM_UPDATE_MUTATION = gql`
  mutation ITEM_UPDATE_MUTATION(
    $id:ID!
-   $title:String
-   $description:String
-   $price:Int
+   $title:String!
+   $description:String!
+   $price:Int!
  ){
    updateItem(
      id:$id
@@ -36,6 +36,7 @@ const ITEM_UPDATE_MUTATION = gql`
      price:$price
      description:$description
    ){
+     id
      title
      price
      description
@@ -67,9 +68,11 @@ class UpdateItem extends Component{
     query={QUERY_ITEM_UPDATE}
     variables={{id:this.props.id}}
     >
-    {({data,error,loading})=>(
-     <Mutation mutation={ITEM_UPDATE_MUTATION}>
+    {({data,error,loading})=>{
+       console.log(data)
+     return <Mutation mutation={ITEM_UPDATE_MUTATION}>
       {(updateItem,{loading})=>(
+
         <Form onSubmit={(e)=>{this.onSubmit(e,updateItem)}}>
          <fieldset disabled={loading} aria-busy={loading}>
           <label htmlFor="title">
@@ -111,7 +114,7 @@ class UpdateItem extends Component{
      </Mutation>
 
 
-    )}
+   }}
 
   </Query>
 
@@ -122,4 +125,4 @@ class UpdateItem extends Component{
 
 
 export default UpdateItem;
-export { UPDATE_ITEM_MUTATION };
+export { QUERY_ITEM_UPDATE };

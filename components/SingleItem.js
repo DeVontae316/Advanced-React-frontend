@@ -33,14 +33,13 @@ const Center = styled.div`
  text-align:center;
 `;
 
-const QUERY_CREATED_ITEM = gql`
- query QUERY_CREATED_ITEM($id:ID!){
+const SINGLE_CREATED_ITEM = gql`
+ query SINGLE_CREATED_ITEM($id:ID!){
    item(where:{id:$id}){
-     title
      description
-     price
-     id
+     title
      largeImage
+     price
    }
  }
 `
@@ -49,29 +48,28 @@ class SingleItem extends Component{
 
   render(){
     return(
-
-
-    <Query query={QUERY_CREATED_ITEM} variables={{id:this.props.id}}>
+    <Query query={SINGLE_CREATED_ITEM} variables={{id:this.props.id}}>
      {({data,loading,error})=>{
        if(loading) return <p>...loading</p>
        if(error) return <ErrorMessage error={error} />
-       if(!data.item)<p>No item found for {this.props.id}</p>
-       console.log(data);
-       return <Item>
-
-        <img src={data.item.largeImage} alt= " " />
+       return<Item>
+        <Head>
+         <title>Sick Fits | {data.item.title}</title>
+        </Head>
+        <img src={data.item.largeImage} alt=" " />
         <div className="details">
-          <h2>{data.item.title}</h2>
-          <p>{data.item.description}</p>
+         <h2>{data.item.title}</h2>
+         <p>{data.item.description}</p>
         </div>
+        {this.props.children}
        </Item>
+       
      }}
     </Query>
-
 
     )
   }
 }
 
-
+export{SINGLE_CREATED_ITEM};
 export default SingleItem;

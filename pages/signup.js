@@ -1,57 +1,24 @@
-import PropTypes from 'prop-types';
-import Link from 'next/link';
-import Supreme from '../components/styles/Supreme';
-import styled from 'styled-components';
+import Signup from '../components/Signup';
+import Signin from '../components/Signin';
+import Props from 'prop-types';
+import RequestReset from '../components/RequestReset';
+import RequestResetP from '../components/RequestResetP';
+import styled  from 'styled-components';
 
-const StyledDiv = styled.div`
+const Div = styled.div`
  display:grid;
- grid-template-columns : auto auto auto;
- grid-template-rows: 100px 200px;
- border: solid black 10px;
- max-width:500px;
- @media(max-width:1300px){
-   margin : 0 auto;
-
- }
- a{
-   @media(max-width:1300px){
-    color:${props => props.theme.softPurple};
-
-   }
-
- }
+ grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+ grid-gap:20px;
 `
 
-
-const Test = ()=>{
+const SignupUser = (props)=>{
   return(
-    <StyledDiv>
-
-     <Link href="http://www.google.com">
-     <a>Hello World</a>
-     </Link>
-
-     <Link href="http://www.google.com">
-     <a>Hello World</a>
-     </Link>
-
-     <Link href="http://www.google.com">
-     <a>Hello World</a>
-     </Link>
-     <Link href="http://www.google.com">
-     <a>Hello World</a>
-     </Link>
-
-     <Link href="http://www.google.com">
-     <a>Hello World</a>
-     </Link>
-
-     <Link href="http://www.google.com">
-     <a>Hello World</a>
-     </Link>
-
-    </StyledDiv>
+   <Div>
+    <Signup />
+    <Signin/>
+    <RequestResetP />
+  </Div>
   )
 }
 
-export default Test;
+export default SignupUser;

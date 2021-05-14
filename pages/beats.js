@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import PropTypes  from 'prop-types';
 import Link from 'next/link';
 
@@ -22,4 +22,11 @@ Beatz.propTypes = {
 
 }
 
-export default Beatz;
+export default Beatz;*/
+
+function test(){
+  return "Bob is that you?";
+
+}
+
+console.log(test());

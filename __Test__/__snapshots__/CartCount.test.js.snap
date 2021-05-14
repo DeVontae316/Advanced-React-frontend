@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CartCount/> Does it update 1`] = `
+<CartCount__AnimationStyles>
+  <TransitionGroup
+    childFactory={[Function]}
+    component="div"
+  >
+    <CSSTransition
+      className="count"
+      classNames="count"
+      key="11"
+      timeout={
+        Object {
+          "enter": 200,
+          "exit": 200,
+        }
+      }
+      unmountOnExit={true}
+    >
+      <CartCount__Dot>
+        <div
+          className="count"
+        >
+          11
+        </div>
+      </CartCount__Dot>
+    </CSSTransition>
+  </TransitionGroup>
+</CartCount__AnimationStyles>
+`;
+
+exports[`<CartCount/> Does it update 2`] = `
+<CartCount__AnimationStyles>
+  <TransitionGroup
+    childFactory={[Function]}
+    component="div"
+  >
+    <CSSTransition
+      className="count"
+      classNames="count"
+      key="50"
+      timeout={
+        Object {
+          "enter": 200,
+          "exit": 200,
+        }
+      }
+      unmountOnExit={true}
+    >
+      <CartCount__Dot>
+        <div
+          className="count"
+        >
+          50
+        </div>
+      </CartCount__Dot>
+    </CSSTransition>
+  </TransitionGroup>
+</CartCount__AnimationStyles>
+`;
+
+exports[`<CartCount/> Matches snapshot 1`] = `
+<CartCount__AnimationStyles>
+  <TransitionGroup
+    childFactory={[Function]}
+    component="div"
+  >
+    <CSSTransition
+      className="count"
+      classNames="count"
+      key="10"
+      timeout={
+        Object {
+          "enter": 200,
+          "exit": 200,
+        }
+      }
+      unmountOnExit={true}
+    >
+      <CartCount__Dot>
+        <div
+          className="count"
+        >
+          10
+        </div>
+      </CartCount__Dot>
+    </CSSTransition>
+  </TransitionGroup>
+</CartCount__AnimationStyles>
+`;

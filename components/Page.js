@@ -19,16 +19,19 @@ const theme = {
   bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)',
   softPurple:'#9068be'
 }
+
 const StyledPage = styled.div`
-  background:white;
-  color:${props => props.theme.black};
-`
-const InnerComponent = styled.div`
- max-width:${props => props.theme.maxWidth};
+ background:white;
+
+
+`;
+
+const InnerComponent =  styled.div`
  margin: 0 auto;
- padding: 2rem;
- background:${props => props.theme.white};
+ padding:10rem;
 `
+
+
 injectGlobal`
  @font-face{
    font-family:'radnika_next';
@@ -55,7 +58,7 @@ injectGlobal`
    }
    a{
      text-decoration:none;
-     color:${theme.black};
+     
    }
  }
 
@@ -63,20 +66,8 @@ injectGlobal`
 `
 
 
-const myTheme = {
-  red:'#FF0000'
 
-}
-const TestPage = styled.div`
- background:${props => props.theme.red};
- max-width:1000px;
- margin: 0 auto;
- padding : 0;
-`
-const StyledPage2 = styled.div`
- backgorund:${props => props.theme.offWhite};
- color:${props => props.theme.black}
-`
+
 class Page extends Component{
   render(){
 
